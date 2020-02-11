@@ -15,9 +15,11 @@ class FilmsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // handing off duties
         tableView.dataSource = self
         tableView.delegate = self
-        print("Hello, World!")
+        
         // Do any additional setup after loading the view.
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval:  10)
@@ -64,17 +66,24 @@ class FilmsViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     
-        
-    }
+    
     
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        print("Loading details screen")
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        let film = filmes[indexPath.row]
+        
+        let detailsViewController = segue.destination as! FilmDetailViewController
+        detailsViewController.film = film
     }
-    */
+ 
 
+}
